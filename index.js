@@ -12,25 +12,25 @@ class App extends React.Component {
     this.handleIncrementSession = this.handleIncrementSession.bind(this)
   }
 
-  handleDecrementBreak = () => {
+  handleDecrementBreak() {
     this.setState({
       breakLen: this.state.breakLen - 1
     })
   }
 
-  handleIncrementBreak = () => {
+  handleIncrementBreak() {
     this.setState({
       breakLen: this.state.breakLen + 1
     })
   }
 
-  handleDecrementSession = () => {
+  handleDecrementSession() {
     this.setState({
       sessionLen: this.state.sessionLen - 1
     })
   }
 
-  handleIncrementSession = () => {
+  handleIncrementSession() {
     this.setState({
       sessionLen: this.state.sessionLen + 1
     })
