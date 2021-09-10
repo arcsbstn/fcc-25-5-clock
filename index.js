@@ -6,8 +6,22 @@ class App extends React.Component {
       sessionLen: 25,
       timeLeft: 1500
     }
+    this.handleDecrementBreak = this.handleDecrementBreak.bind(this)
+    this.handleIncrementBreak = this.handleIncrementBreak.bind(this)
     this.handleDecrementSession = this.handleDecrementSession.bind(this)
     this.handleIncrementSession = this.handleIncrementSession.bind(this)
+  }
+
+  handleDecrementBreak = () => {
+    this.setState({
+      breakLen: this.state.breakLen - 1
+    })
+  }
+
+  handleIncrementBreak = () => {
+    this.setState({
+      breakLen: this.state.breakLen + 1
+    })
   }
 
   handleDecrementSession = () => {
@@ -36,6 +50,8 @@ class App extends React.Component {
         <div className="row-container row justify-content-center align-items-center">
           <SetBreak
             breakLen={this.state.breakLen}
+            handleDecrementBreak={this.handleDecrementBreak}
+            handleIncrementBreak={this.handleIncrementBreak}
           />
           <SetSession
             sessionLen={this.state.sessionLen}
@@ -57,8 +73,12 @@ class SetBreak extends React.Component {
       <div className="set-break-container">
         <span id="break-label">Break Length</span>
         <span id="break-length">{this.props.breakLen}</span>
-        <i id='break-increment' class="fa fa-arrow-up"></i>
-        <i id='break-decrement' class="fa fa-arrow-down"></i>
+        <button onClick={this.props.handleIncrementBreak}>
+          <i id='break-increment' class="fa fa-arrow-up"></i>
+        </button>
+        <button onClick={this.props.handleDecrementBreak}>
+          <i id='break-decrement' class="fa fa-arrow-down"></i>
+        </button>
       </div>
     )
   }
