@@ -6,6 +6,20 @@ class App extends React.Component {
       sessionLen: 25,
       timeLeft: 1500
     }
+    this.handleDecrementSession = this.handleDecrementSession.bind(this)
+    this.handleIncrementSession = this.handleIncrementSession.bind(this)
+  }
+
+  handleDecrementSession = () => {
+    this.setState({
+      sessionLen: this.state.sessionLen - 1
+    })
+  }
+
+  handleIncrementSession = () => {
+    this.setState({
+      sessionLen: this.state.sessionLen + 1
+    })
   }
 
   clockify() {
@@ -25,6 +39,8 @@ class App extends React.Component {
           />
           <SetSession
             sessionLen={this.state.sessionLen}
+            handleIncrementSession={this.handleIncrementSession}
+            handleDecrementSession={this.handleDecrementSession}
           />
           <Timer
             timeLeft={this.clockify()}
@@ -54,8 +70,12 @@ class SetSession extends React.Component {
       <div className="set-session-container">
         <span id="session-label">Session Length</span>
         <span id="session-length">{this.props.sessionLen}</span>
-        <i id='session-increment' class="fa fa-arrow-up"></i>
-        <i id='session-decrement' class="fa fa-arrow-down"></i>
+        <button onClick={this.props.handleIncrementSession}>
+          <i id='session-increment' class="fa fa-arrow-up"></i>
+        </button>
+        <button onClick={this.props.handleDecrementSession}>
+          <i id='session-decrement' class="fa fa-arrow-down"></i>
+        </button>
       </div>
     )
   }
