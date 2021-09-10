@@ -14,25 +14,29 @@ class App extends React.Component {
 
   handleDecrementBreak() {
     this.setState({
-      breakLen: this.state.breakLen - 1
+      breakLen: this.state.breakLen - 1,
+      timeLeft: this.state.timeLeft - 60
     })
   }
 
   handleIncrementBreak() {
     this.setState({
-      breakLen: this.state.breakLen + 1
+      breakLen: this.state.breakLen + 1,
+      timeLeft: this.state.timeLeft + 60
     })
   }
 
   handleDecrementSession() {
     this.setState({
-      sessionLen: this.state.sessionLen - 1
+      sessionLen: this.state.sessionLen - 1,
+      timeLeft: this.state.timeLeft - 60
     })
   }
 
   handleIncrementSession() {
     this.setState({
-      sessionLen: this.state.sessionLen + 1
+      sessionLen: this.state.sessionLen + 1,
+      timeLeft: this.state.timeLeft + 60
     })
   }
 
