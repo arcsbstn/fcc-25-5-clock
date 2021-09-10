@@ -1,0 +1,9 @@
+.container-fluid {
+  height: 100%;
+  min-height: 100vh;
+}
+
+.row-container {
+  height: 100%;
+  min-height: 100vh;
+}
