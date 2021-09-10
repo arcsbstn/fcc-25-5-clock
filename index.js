@@ -1,10 +1,14 @@
+const SESSION = 'session'
+const BREAK = 'break'
+
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       breakLen: 5,
       sessionLen: 25,
-      timeLeft: 1500
+      timeLeft: 1500,
+      timerType: SESSION
     }
     this.handleDecrementBreak = this.handleDecrementBreak.bind(this)
     this.handleIncrementBreak = this.handleIncrementBreak.bind(this)
@@ -13,31 +17,39 @@ class App extends React.Component {
   }
 
   handleDecrementBreak() {
-    this.setState({
-      breakLen: this.state.breakLen - 1,
-      timeLeft: this.state.timeLeft - 60
-    })
+    if (this.state.timerType === BREAK) {
+      this.setState({
+        breakLen: this.state.breakLen - 1,
+        timeLeft: this.state.timeLeft - 60
+      })
+    }
   }
 
   handleIncrementBreak() {
-    this.setState({
-      breakLen: this.state.breakLen + 1,
-      timeLeft: this.state.timeLeft + 60
-    })
+    if (this.state.timerType === BREAK) {
+      this.setState({
+        breakLen: this.state.breakLen + 1,
+        timeLeft: this.state.timeLeft + 60
+      })
+    }
   }
 
   handleDecrementSession() {
-    this.setState({
-      sessionLen: this.state.sessionLen - 1,
-      timeLeft: this.state.timeLeft - 60
-    })
+    if (this.state.timerType === SESSION) {
+      this.setState({
+        sessionLen: this.state.sessionLen - 1,
+        timeLeft: this.state.timeLeft - 60
+      })
+    }
   }
 
   handleIncrementSession() {
-    this.setState({
-      sessionLen: this.state.sessionLen + 1,
-      timeLeft: this.state.timeLeft + 60
-    })
+    if (this.state.timerType === SESSION) {
+      this.setState({
+        sessionLen: this.state.sessionLen + 1,
+        timeLeft: this.state.timeLeft + 60
+      })
+    }
   }
 
   clockify() {
