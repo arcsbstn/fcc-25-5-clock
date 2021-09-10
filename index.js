@@ -52,15 +52,25 @@ class App extends React.Component {
     return (
       <div className='container-fluid'>
         <div className='row-container row justify-content-center align-items-center'>
-          <SetBreak
-            breakLen={this.state.breakLen}
-            handleDecrementBreak={this.handleDecrementBreak}
-            handleIncrementBreak={this.handleIncrementBreak}
+          <SetTimerLength
+            timerLabelId='break-label'
+            timerLabel='Break Length'
+            timerLen={this.state.breakLen}
+            timerLenId='break-length'
+            decTimerId='break-decrement'
+            handleDecrementTimer={this.handleDecrementBreak}
+            incTimerId='break-increment'
+            handleIncrementTimer={this.handleIncrementBreak}
           />
-          <SetSession
-            sessionLen={this.state.sessionLen}
-            handleIncrementSession={this.handleIncrementSession}
-            handleDecrementSession={this.handleDecrementSession}
+          <SetTimerLength
+            timerLabelId='session-label'
+            timerLabel='Session Length'
+            timerLen={this.state.sessionLen}
+            timerLenId='session-length'
+            decTimerId='session-decrement'
+            handleDecrementTimer={this.handleDecrementSession}
+            incTimerId='break-increment'
+            handleIncrementTimer={this.handleIncrementSession}
           />
           <Timer
             timeLeft={this.clockify()}
@@ -71,34 +81,17 @@ class App extends React.Component {
   }
 }
 
-class SetBreak extends React.Component {
+class SetTimerLength extends React.Component {
   render() {
     return (
-      <div className='set-break-container'>
-        <span id='break-label'>Break Length</span>
-        <span id='break-length'>{this.props.breakLen}</span>
-        <button onClick={this.props.handleIncrementBreak}>
-          <i id='break-increment' class='fa fa-arrow-up'></i>
+      <div className='set-timer-length-container'>
+        <span id={this.props.timerLabelId}>{this.props.timerLabel}</span>
+        <span id={this.props.timerLenId}>{this.props.timerLen}</span>
+        <button onClick={this.props.handleIncrementTimer}>
+          <i id={this.props.incTimerId} class='fa fa-arrow-up'></i>
         </button>
-        <button onClick={this.props.handleDecrementBreak}>
-          <i id='break-decrement' class='fa fa-arrow-down'></i>
-        </button>
-      </div>
-    )
-  }
-}
-
-class SetSession extends React.Component {
-  render() {
-    return (
-      <div className='set-session-container'>
-        <span id='session-label'>Session Length</span>
-        <span id='session-length'>{this.props.sessionLen}</span>
-        <button onClick={this.props.handleIncrementSession}>
-          <i id='session-increment' class='fa fa-arrow-up'></i>
-        </button>
-        <button onClick={this.props.handleDecrementSession}>
-          <i id='session-decrement' class='fa fa-arrow-down'></i>
+        <button onClick={this.props.handleDecrementTimer}>
+          <i id={this.props.decTimerId} class='fa fa-arrow-down'></i>
         </button>
       </div>
     )
