@@ -20,38 +20,46 @@ class App extends React.Component {
   }
 
   handleDecrementBreak() {
-    if (this.state.timerType === BREAK) {
-      this.setState({
-        breakLen: this.state.breakLen - 1,
-        timeLeft: this.state.timeLeft - 60
-      })
+    if (!this.state.isTimerRunning) {
+      if (this.state.timerType === BREAK) {
+        this.setState({
+          breakLen: this.state.breakLen - 1,
+          timeLeft: this.state.timeLeft - 60
+        })
+      }
     }
   }
 
   handleIncrementBreak() {
-    if (this.state.timerType === BREAK) {
-      this.setState({
-        breakLen: this.state.breakLen + 1,
-        timeLeft: this.state.timeLeft + 60
-      })
+    if (!this.state.isTimerRunning) {
+      if (this.state.timerType === BREAK) {
+        this.setState({
+          breakLen: this.state.breakLen + 1,
+          timeLeft: this.state.timeLeft + 60
+        })
+      }
     }
   }
 
   handleDecrementSession() {
-    if (this.state.timerType === SESSION) {
-      this.setState({
-        sessionLen: this.state.sessionLen - 1,
-        timeLeft: this.state.timeLeft - 60
-      })
+    if (!this.state.isTimerRunning) {
+      if (this.state.timerType === SESSION) {
+        this.setState({
+          sessionLen: this.state.sessionLen - 1,
+          timeLeft: this.state.timeLeft - 60
+        })
+      }
     }
   }
 
   handleIncrementSession() {
-    if (this.state.timerType === SESSION) {
-      this.setState({
-        sessionLen: this.state.sessionLen + 1,
-        timeLeft: this.state.timeLeft + 60
-      })
+    if (!this.state.isTimerRunning) {
+      if (this.state.timerType === SESSION) {
+        this.setState({
+          sessionLen: this.state.sessionLen + 1,
+          timeLeft: this.state.timeLeft + 60
+        })
+      }
     }
   }
 
