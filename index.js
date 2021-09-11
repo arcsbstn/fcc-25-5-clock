@@ -1,23 +1,41 @@
 const SESSION = 'session'
 const BREAK = 'break'
+const SESSIONLEN = 25
+const BREAKLEN = 5
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      breakLen: 5,
-      sessionLen: 25,
-      timeLeft: 1500,
+      breakLen: BREAKLEN, // min
+      sessionLen: SESSIONLEN, // min
+      timeLeft: SESSIONLEN * 60, // sec
       timerType: SESSION,
       isTimerRunning: false,
       intervalId: ''
     }
+    this.changeTimerType = this.changeTimerType.bind(this)
     this.handleDecrementBreak = this.handleDecrementBreak.bind(this)
     this.handleIncrementBreak = this.handleIncrementBreak.bind(this)
     this.handleDecrementSession = this.handleDecrementSession.bind(this)
     this.handleIncrementSession = this.handleIncrementSession.bind(this)
     this.resetTimer = this.resetTimer.bind(this)
     this.toggleStartStopTimer = this.toggleStartStopTimer.bind(this)
+  }
+
+  changeTimerType() {
+    clearInterval(this.state.intervalId)
+    this.setState({
+      timerType: this.state.timerType === SESSION
+        ? BREAK
+        : SESSION,
+      timeLeft: this.state.timerType === SESSION
+        ? this.state.breakLen * 60
+        : this.state.sessionLen * 60
+    }, () => {
+      this.runTimer()
+      this.setState({ isTimerRunning: true })
+    })
   }
 
   handleDecrementBreak() {
@@ -67,9 +85,9 @@ class App extends React.Component {
   resetTimer() {
     clearInterval(this.state.intervalId)
     this.setState({
-      breakLen: 5,
-      sessionLen: 25,
-      timeLeft: 1500,
+      breakLen: BREAKLEN, // min
+      sessionLen: SESSIONLEN, // min
+      timeLeft: SESSIONLEN * 60, // sec
       timerType: SESSION,
       isTimerRunning: false,
       intervalId: ''
@@ -80,6 +98,10 @@ class App extends React.Component {
     let intervalId = setInterval(() => {
       this.setState({
         timeLeft: this.state.timeLeft - 1
+      }, () => {
+        if (this.state.timeLeft === 0) {
+          this.changeTimerType()
+        }
       })
     }, 1000)
     this.setState({
