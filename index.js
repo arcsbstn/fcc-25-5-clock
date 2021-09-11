@@ -16,6 +16,7 @@ class App extends React.Component {
     this.handleIncrementBreak = this.handleIncrementBreak.bind(this)
     this.handleDecrementSession = this.handleDecrementSession.bind(this)
     this.handleIncrementSession = this.handleIncrementSession.bind(this)
+    this.resetTimer = this.resetTimer.bind(this)
     this.toggleStartStopTimer = this.toggleStartStopTimer.bind(this)
   }
 
@@ -61,6 +62,18 @@ class App extends React.Component {
         })
       }
     }
+  }
+
+  resetTimer() {
+    clearInterval(this.state.intervalId)
+    this.setState({
+      breakLen: 5,
+      sessionLen: 25,
+      timeLeft: 1500,
+      timerType: SESSION,
+      isTimerRunning: false,
+      intervalId: ''
+    })
   }
 
   runTimer() {
@@ -121,6 +134,7 @@ class App extends React.Component {
           />
           <Timer
             timeLeft={this.clockify()}
+            resetTimer={this.resetTimer}
             toggleStartStopTimer={this.toggleStartStopTimer}
           />
         </div>
@@ -157,7 +171,7 @@ class Timer extends React.Component {
           {this.props.timeLeft}
         </div>
         <button id='start_stop' onClick={this.props.toggleStartStopTimer}>START/STOP</button>
-        <button id='reset'>RESET</button>
+        <button id='reset' onClick={this.props.resetTimer}>RESET</button>
       </div>
     )
   }
