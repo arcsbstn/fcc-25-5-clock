@@ -116,7 +116,7 @@ class App extends React.Component {
             timerLenId='session-length'
             decTimerId='session-decrement'
             handleDecrementTimer={this.handleDecrementSession}
-            incTimerId='break-increment'
+            incTimerId='session-increment'
             handleIncrementTimer={this.handleIncrementSession}
           />
           <Timer
