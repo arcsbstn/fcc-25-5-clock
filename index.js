@@ -8,12 +8,15 @@ class App extends React.Component {
       breakLen: 5,
       sessionLen: 25,
       timeLeft: 1500,
-      timerType: SESSION
+      timerType: SESSION,
+      isTimerRunning: false,
+      intervalId: ''
     }
     this.handleDecrementBreak = this.handleDecrementBreak.bind(this)
     this.handleIncrementBreak = this.handleIncrementBreak.bind(this)
     this.handleDecrementSession = this.handleDecrementSession.bind(this)
     this.handleIncrementSession = this.handleIncrementSession.bind(this)
+    this.toggleStartStopTimer = this.toggleStartStopTimer.bind(this)
   }
 
   handleDecrementBreak() {
@@ -52,6 +55,30 @@ class App extends React.Component {
     }
   }
 
+  runTimer() {
+    let intervalId = setInterval(() => {
+      this.setState({
+        timeLeft: this.state.timeLeft - 1
+      })
+    }, 1000)
+    this.setState({
+      intervalId
+    })
+  }
+
+  toggleStartStopTimer() {
+    if (!this.state.isTimerRunning) {
+      this.runTimer()
+      this.setState({ isTimerRunning: true })
+    } else {
+      clearInterval(this.state.intervalId)
+      this.setState({
+        isTimerRunning: false,
+        intervalId: ''
+      })
+    }
+  }
+
   clockify() {
     let minutes = Math.floor(this.state.timeLeft / 60)
     let seconds = this.state.timeLeft - minutes * 60
@@ -86,6 +113,7 @@ class App extends React.Component {
           />
           <Timer
             timeLeft={this.clockify()}
+            toggleStartStopTimer={this.toggleStartStopTimer}
           />
         </div>
       </div>
@@ -120,7 +148,7 @@ class Timer extends React.Component {
         <div id='time-left'>
           {this.props.timeLeft}
         </div>
-        <button id='start_stop'>START/STOP</button>
+        <button id='start_stop' onClick={this.props.toggleStartStopTimer}>START/STOP</button>
         <button id='reset'>RESET</button>
       </div>
     )
