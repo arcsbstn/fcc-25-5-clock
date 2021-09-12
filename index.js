@@ -90,6 +90,8 @@ class App extends React.Component {
       isTimerRunning: false,
       intervalId: ''
     })
+    this.beepSound.pause()
+    this.beepSound.currentTime = 0
   }
 
   runTimer() {
@@ -97,6 +99,9 @@ class App extends React.Component {
       this.setState({
         timeLeft: this.state.timeLeft - 1
       }, () => {
+        if (this.state.timeLeft === 0) {
+          this.beepSound.play()
+        }
         if (this.state.timeLeft < 0) {
           if (this.state.intervalId) clearInterval(this.state.intervalId)
           this.changeTimerType()
@@ -159,6 +164,14 @@ class App extends React.Component {
             resetTimer={this.resetTimer}
             toggleStartStopTimer={this.toggleStartStopTimer}
           />
+          <audio
+            id='beep'
+            load='auto'
+            ref={(audio) => {
+              this.beepSound = audio
+            }}
+            src='https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav'
+          ></audio>
         </div>
       </div>
     )
