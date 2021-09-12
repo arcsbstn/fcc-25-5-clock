@@ -193,14 +193,10 @@ class App extends React.Component {
 
 class SetTimerLength extends React.Component {
   render() {
-    let timerLen = this.props.timerLen < 10
-      ? `0${this.props.timerLen}`
-      : `${this.props.timerLen}`
-
     return (
       <div>
         <div id={this.props.timerLabelId}>{this.props.timerLabel}</div>
-        <span id={this.props.timerLenId}>{timerLen}</span>
+        <span id={this.props.timerLenId}>{this.props.timerLen}</span>
         <div>
           <button 
             className='inc-arrow'
