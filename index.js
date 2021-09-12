@@ -1,5 +1,5 @@
-const SESSION = 'session'
-const BREAK = 'break'
+const SESSION = 'Session'
+const BREAK = 'Break'
 const SESSIONLEN = 25
 const BREAKLEN = 5
 
@@ -39,7 +39,7 @@ class App extends React.Component {
   }
 
   handleDecrementBreak() {
-    if (!this.state.isTimerRunning) {
+    if (!this.state.isTimerRunning && this.state.breakLen > 1) {
       this.setState({
         breakLen: this.state.breakLen - 1,
         timeLeft: this.state.timerType === BREAK
@@ -50,7 +50,7 @@ class App extends React.Component {
   }
 
   handleIncrementBreak() {
-    if (!this.state.isTimerRunning) {
+    if (!this.state.isTimerRunning && this.state.breakLen < 60) {
       this.setState({
         breakLen: this.state.breakLen + 1,
         timeLeft: this.state.timerType === BREAK
@@ -61,7 +61,7 @@ class App extends React.Component {
   }
 
   handleDecrementSession() {
-    if (!this.state.isTimerRunning) {
+    if (!this.state.isTimerRunning && this.state.sessionLen > 1) {
       this.setState({
         sessionLen: this.state.sessionLen - 1,
         timeLeft: this.state.timerType === SESSION
@@ -72,7 +72,7 @@ class App extends React.Component {
   }
 
   handleIncrementSession() {
-    if (!this.state.isTimerRunning) {
+    if (!this.state.isTimerRunning && this.state.sessionLen < 60) {
       this.setState({
         sessionLen: this.state.sessionLen + 1,
         timeLeft: this.state.timerType === SESSION
@@ -100,7 +100,9 @@ class App extends React.Component {
         timeLeft: this.state.timeLeft - 1
       }, () => {
         if (this.state.timeLeft === 0) {
-          this.changeTimerType()
+          setTimeout(() => {
+            this.changeTimerType()
+          }, 800)
         }
       })
     }, 1000)
@@ -156,6 +158,7 @@ class App extends React.Component {
           />
           <Timer
             timeLeft={this.clockify()}
+            timerType={this.state.timerType}
             resetTimer={this.resetTimer}
             toggleStartStopTimer={this.toggleStartStopTimer}
           />
@@ -187,7 +190,7 @@ class Timer extends React.Component {
     return (
       <div>
         <span id='timer-label'>
-          Session
+          {this.props.timerType}
         </span>
         <div id='time-left'>
           {this.props.timeLeft}
