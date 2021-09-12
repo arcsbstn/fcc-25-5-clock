@@ -142,7 +142,7 @@ class App extends React.Component {
     return (
       <div className='container-fluid'>
         <div className='row-container row justify-content-center align-items-center'>
-          <div className="timer-container row">
+          <div className='clock-container row'>
             <Timer
               timeLeft={this.clockify()}
               timerType={this.state.timerType}
@@ -150,26 +150,32 @@ class App extends React.Component {
               stopStartTimer={stopStartTimer}
               toggleStartStopTimer={this.toggleStartStopTimer}
             />
-            <SetTimerLength
-              timerLabelId='break-label'
-              timerLabel='Break Length'
-              timerLen={this.state.breakLen}
-              timerLenId='break-length'
-              decTimerId='break-decrement'
-              handleDecrementTimer={this.handleDecrementBreak}
-              incTimerId='break-increment'
-              handleIncrementTimer={this.handleIncrementBreak}
-            />
-            <SetTimerLength
-              timerLabelId='session-label'
-              timerLabel='Session Length'
-              timerLen={this.state.sessionLen}
-              timerLenId='session-length'
-              decTimerId='session-decrement'
-              handleDecrementTimer={this.handleDecrementSession}
-              incTimerId='session-increment'
-              handleIncrementTimer={this.handleIncrementSession}
-            />
+            <div>
+              <div className='break-container'>
+                <SetTimerLength
+                  timerLabelId='break-label'
+                  timerLabel='Break Length'
+                  timerLen={this.state.breakLen}
+                  timerLenId='break-length'
+                  decTimerId='break-decrement'
+                  handleDecrementTimer={this.handleDecrementBreak}
+                  incTimerId='break-increment'
+                  handleIncrementTimer={this.handleIncrementBreak}
+                />
+              </div>
+              <div className='session-container'>
+                <SetTimerLength
+                  timerLabelId='session-label'
+                  timerLabel='Session Length'
+                  timerLen={this.state.sessionLen}
+                  timerLenId='session-length'
+                  decTimerId='session-decrement'
+                  handleDecrementTimer={this.handleDecrementSession}
+                  incTimerId='session-increment'
+                  handleIncrementTimer={this.handleIncrementSession}
+                />
+              </div>
+            </div>
             <audio
               id='beep'
               load='auto'
@@ -187,16 +193,25 @@ class App extends React.Component {
 
 class SetTimerLength extends React.Component {
   render() {
+    let timerLen = this.props.timerLen < 10
+      ? `0${this.props.timerLen}`
+      : `${this.props.timerLen}`
+
     return (
-      <div className='set-timer-length-container'>
-        <span id={this.props.timerLabelId}>{this.props.timerLabel}</span>
-        <span id={this.props.timerLenId}>{this.props.timerLen}</span>
-        <button onClick={this.props.handleIncrementTimer}>
-          <i id={this.props.incTimerId} class='fa fa-arrow-up'></i>
-        </button>
-        <button onClick={this.props.handleDecrementTimer}>
-          <i id={this.props.decTimerId} class='fa fa-arrow-down'></i>
-        </button>
+      <div>
+        <div id={this.props.timerLabelId}>{this.props.timerLabel}</div>
+        <span id={this.props.timerLenId}>{timerLen}</span>
+        <div>
+          <button 
+            className='inc-arrow'
+            onClick={this.props.handleIncrementTimer}
+          >
+            <i id={this.props.incTimerId} className='fa fa-arrow-up'></i>
+          </button>
+          <button onClick={this.props.handleDecrementTimer}>
+            <i id={this.props.decTimerId} className='fa fa-arrow-down'></i>
+          </button>
+        </div>
       </div>
     )
   }
@@ -215,10 +230,10 @@ class Timer extends React.Component {
           </div>
           <div id='timer-ssr'>
             <button id='start_stop' onClick={this.props.toggleStartStopTimer}>
-              <i class={this.props.stopStartTimer} aria-hidden="true"></i>
+              <i className={this.props.stopStartTimer} aria-hidden='true'></i>
             </button>
             <button id='reset' onClick={this.props.resetTimer}>
-              <i class="fa fa-refresh" aria-hidden="true"></i>
+              <i className='fa fa-refresh' aria-hidden='true'></i>
             </button>
           </div>
         </div>
