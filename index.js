@@ -24,7 +24,6 @@ class App extends React.Component {
   }
 
   changeTimerType() {
-    clearInterval(this.state.intervalId)
     this.setState({
       timerType: this.state.timerType === SESSION
         ? BREAK
@@ -34,7 +33,6 @@ class App extends React.Component {
         : this.state.sessionLen * 60
     }, () => {
       this.runTimer()
-      this.setState({ isTimerRunning: true })
     })
   }
 
@@ -99,10 +97,9 @@ class App extends React.Component {
       this.setState({
         timeLeft: this.state.timeLeft - 1
       }, () => {
-        if (this.state.timeLeft === 0) {
-          setTimeout(() => {
-            this.changeTimerType()
-          }, 800)
+        if (this.state.timeLeft < 0) {
+          if (this.state.intervalId) clearInterval(this.state.intervalId)
+          this.changeTimerType()
         }
       })
     }, 1000)
