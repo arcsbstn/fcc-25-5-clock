@@ -209,18 +209,14 @@ class Timer extends React.Component {
         <div id='time-left'>
           {this.props.timeLeft}
         </div>
-        <div id='display-controls' className="row gx-3">
-          <div className="col-sm-8">
-            <div id='timer-label'>
-              {this.props.timerType}
-            </div>
+        <div id='display-controls'>
+          <div id='timer-label'>
+            {this.props.timerType}
           </div>
-          <div className="col-sm-2">
+          <div id='timer-ssr'>
             <button id='start_stop' onClick={this.props.toggleStartStopTimer}>
               <i class={this.props.stopStartTimer} aria-hidden="true"></i>
             </button>
-          </div>
-          <div className="col-sm-2">
             <button id='reset' onClick={this.props.resetTimer}>
               <i class="fa fa-refresh" aria-hidden="true"></i>
             </button>
